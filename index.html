@@ -5,10 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pure JS Todo List</title>
-    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset.css">
     <script src="main.js" defer></script>
 </head>
 <body>
-    
+    <div class="todo__wrapper">
+        <h1 class="todo__header">todos</h1>
+        <div class="todo">
+            <form action="" id="task-form">
+                <input class="todo__input" type="text" placeholder="What needs to be done?" id="task-input">
+            </form>
+            <ul class="todo__list">
+            </ul>
+            <div class="todo__footer footer">
+                <span class="footer__counter">0 items left</span>
+                <div class="footer__filter filter">
+                    <button class="filter__button filter__button_active button-base" id="filter-all">All</button>
+                    <button class="filter__button button-base" id="filter-active">Active</button>
+                    <button class="filter__button button-base" id="filter-completed">Completed</button>
+                </div>
+                <button class="footer__button button-base" id="clear-complete">Clear all todos</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

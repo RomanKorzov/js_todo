@@ -1,115 +1,104 @@
 .todo {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    box-shadow: 0px 20px 29px 0px rgba(34, 60, 80, 0.15);
-    background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  min-height: 500px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0px 20px 29px 0px rgba(34, 60, 80, 0.15);
+  background-color: #fff;
 }
 
 .todo__list {
-    min-height: 150px;
+  min-height: 100%;
 }
 
 .todo__input {
-    width: 100%;
-    padding: 8px 8px 8px 32px;
-    border: 1px solid #f5f5f5;
+  width: 100%;
+  padding: 8px 8px 8px 32px;
+  border: 1px solid #f5f5f5;
 }
 
 .todo__header {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    font-size: 64px;
-    color: #facbd3;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 64px;
+  color: #facbd3;
 }
 
 .todo__item {
-    position: relative;
-    display: flex;
-    padding: 8px;
-    background-color: #fff;
-    border: 1px solid #f5f5f5;
+  position: relative;
+  display: flex;
+  padding: 8px;
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
 }
 
 .todo__item_completed {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 .item__delete-button {
-    position: absolute;
-    right: 0;
-    border: none;
-    background-color: #fff;
+  position: absolute;
+  right: 0;
+  border: none;
+  background-color: #fff;
 }
-
-/* .todo__item input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.todo__checkbox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 8px 0 0;
-    width: 32px;
-    height: 32px;
-    border: 1px solid #f5f5f5;
-    border-radius: 50px;
-    font-size: 24px;
-    color: aquamarine;
-}
-
-.todo__checkbox:hover {
-    background-color: #f5f5f5;
-    cursor: pointer;
-}
-
-input:checked ~ .todo__checkbox {
-    background-color: #facbd3;
-} */
 
 .todo__wrapper {
-    width: 100vw;
-    height: 100vh;
-    padding: 8px 16px;
-    background-color: #f5f5f5;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  padding: 8px 16px;
+  background-color: #f5f5f5;
 }
 
 .todo__footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 8px 0;
-    color: #494949;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto 0 0 0;
+  justify-content: space-evenly;
+  padding: 8px 0;
+  color: #494949;
 }
 
 .button-base {
-    background-color: #fff;
-    color: #494949;
-    border: none;
+  background-color: #fff;
+  color: #494949;
+  border: none;
 }
 
 .footer__counter {
-    order: 1;
+  order: 1;
 }
 
 .footer__filter {
-    order: 3;
+  order: 3;
 }
 
 .footer__button {
-    order: 2;
+  order: 2;
 }
 
 .filter__button {
 }
 
 .filter__button_active {
-    border: 1px solid #f5f5f5;
-    border-radius: 4px;
+  border: 1px solid #f5f5f5;
+  border-radius: 4px;
+}
+
+@media only screen and (min-width: 640px) {
+  .footer__counter {
+    order: 1;
+  }
+
+  .footer__filter {
+    order: 2;
+  }
+
+  .footer__button {
+    order: 3;
+  }
 }

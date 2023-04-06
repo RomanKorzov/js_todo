@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
-  const todoForm = document.querySelector('#task-form');
-  const todoInput = document.querySelector('#task-input');
+  const todoForm = document.querySelector('#todo-form');
+  const todoInput = document.querySelector('#todo-input');
   const todoList = document.querySelector('.todo__list');
   const todoCounter = document.querySelector('.footer__counter');
   const filterAllButton = document.querySelector('#filter-all');
@@ -17,12 +17,21 @@ window.addEventListener('DOMContentLoaded', () => {
     { id: 5, text: '5', isDone: true },
   ];
 
+  let activeButton = document.querySelector('.filter__button_active');
+  let activeFilter =
+    activeButton === filterAllButton
+      ? todos
+      : activeButton === filterActiveButton
+      ? filterActiveTodos()
+      : filterCompletedTodos();
+
+  console.log(activeFilter);
+
   let filterActiveTodos = () => todos.filter((todo) => todo.isDone === false);
   let filterCompletedTodos = () => todos.filter((todo) => todo.isDone === true);
   let getActiveTodosCount = () => filterActiveTodos().length;
 
   let nextId = 6;
-  let filter = 'all';
 
   function renderList(list) {
     todoList.innerHTML = '';
@@ -36,36 +45,21 @@ window.addEventListener('DOMContentLoaded', () => {
       function deleteTodo() {
         let nextTodos = todos.filter((todo) => todo.id !== list[i].id);
         todos = nextTodos;
-        renderList(
-          filter === 'all'
-            ? nextTodos
-            : filter === 'active'
-            ? filterActiveTodos()
-            : filterCompletedTodos()
-        );
+        setActiveFilter();
+        renderList(activeFilter);
       }
 
       function toggleIsDone() {
         if (checkbox.checked) {
           list[i].isDone = true;
           todoItem.classList.add('todo__item_completed');
-          renderList(
-            filter === 'all'
-              ? nextTodos
-              : filter === 'active'
-              ? filterActiveTodos()
-              : filterCompletedTodos()
-          );
+          setActiveFilter();
+          renderList(activeFilter);
         } else {
           list[i].isDone = false;
           todoItem.classList.remove('todo__item_completed');
-          renderList(
-            filter === 'all'
-              ? nextTodos
-              : filter === 'active'
-              ? filterActiveTodos()
-              : filterCompletedTodos()
-          );
+          setActiveFilter();
+          renderList(activeFilter);
         }
         showTodoCounter();
       }
@@ -78,7 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
       checkbox.type = 'checkbox';
       checkbox.id = `check-${i}`;
       checkbox.name = 'completed';
-      deleteButton.classList.add('item__delete-button');
+      deleteButton.classList.add('item__delete-button', 'button-base');
       deleteIcon.src = 'delete.png';
       deleteIcon.alt = 'delete icon';
       deleteIcon.width = '16';
@@ -99,15 +93,19 @@ window.addEventListener('DOMContentLoaded', () => {
     showTodoCounter();
   }
 
-  function addTask(event) {
+  function addTodo(event) {
     event.preventDefault();
-    if (todoInput.value) {
+    if (!todoInput.value.trim()) {
+      alert('Input text!');
+    }
+    if (todoInput.value.trim()) {
       todos.push({
-        id: nextId,
+        id: nextId++,
         text: todoInput.value,
         isDone: false,
       });
-      renderList(todos);
+      setActiveFilter();
+      renderList(activeFilter);
     }
   }
 
@@ -120,26 +118,56 @@ window.addEventListener('DOMContentLoaded', () => {
     todoCounter.textContent = `${getActiveTodosCount()} items left`;
   }
 
+  function setActiveButton(button) {
+    activeButton = button;
+  }
+
+  function removeButtonActiveClass(button) {
+    button.classList.remove('filter__button_active');
+  }
+
+  function setButtonActiveClass(button) {
+    button.classList.add('filter__button_active');
+  }
+
+  function setActiveFilter() {
+    activeFilter =
+      activeButton === filterAllButton
+        ? todos
+        : activeButton === filterActiveButton
+        ? filterActiveTodos()
+        : filterCompletedTodos();
+  }
+
   function showAllTodos() {
-    if (filter === 'all') return;
+    if (activeButton === filterAllButton) return;
+    removeButtonActiveClass(activeButton);
+    setActiveButton(filterAllButton);
+    setActiveFilter();
+    setButtonActiveClass(activeButton);
     renderList(todos);
-    filter = 'all';
   }
 
   function showActiveTodos() {
-    if (filter === 'active') return;
+    if (activeButton === filterActiveButton) return;
+    removeButtonActiveClass(activeButton);
+    setActiveButton(filterActiveButton);
+    setActiveFilter();
+    setButtonActiveClass(activeButton);
     renderList(filterActiveTodos());
-    filter = 'active';
   }
 
   function showCompletedTodos() {
-    if (filter === 'comleted') return;
+    if (activeButton === filterCompletedButton) return;
+    removeButtonActiveClass(activeButton);
+    setActiveButton(filterCompletedButton);
+    setActiveFilter();
+    setButtonActiveClass(activeButton);
     renderList(filterCompletedTodos());
-    filter = 'completed';
   }
 
   clearTodosButton.addEventListener('click', clearTodos);
-  todoForm.addEventListener('submit', addTask);
+  todoForm.addEventListener('submit', addTodo);
   filterAllButton.addEventListener('click', showAllTodos);
   filterActiveButton.addEventListener('click', showActiveTodos);
   filterCompletedButton.addEventListener('click', showCompletedTodos);

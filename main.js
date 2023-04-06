@@ -8,14 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const filterCompletedButton = document.querySelector('#filter-completed');
   const clearTodosButton = document.querySelector('#clear-todos');
 
-  let todos = [
-    { id: 0, text: '0', isDone: true },
-    { id: 1, text: '1', isDone: false },
-    { id: 2, text: '2', isDone: true },
-    { id: 3, text: '3', isDone: false },
-    { id: 4, text: '4', isDone: false },
-    { id: 5, text: '5', isDone: true },
-  ];
+  let todos = [];
 
   let activeButton = document.querySelector('.filter__button_active');
   let activeFilter =
@@ -96,7 +89,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     if (todoInput.value.trim()) {
       todos.push({
-        id: Date.now(),
+        id: nextId++,
         text: todoInput.value,
         isDone: false,
       });
@@ -167,6 +160,4 @@ window.addEventListener('DOMContentLoaded', () => {
   filterAllButton.addEventListener('click', showAllTodos);
   filterActiveButton.addEventListener('click', showActiveTodos);
   filterCompletedButton.addEventListener('click', showCompletedTodos);
-
-  renderList(todos);
 });

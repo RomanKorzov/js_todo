@@ -25,13 +25,9 @@ window.addEventListener('DOMContentLoaded', () => {
       ? filterActiveTodos()
       : filterCompletedTodos();
 
-  console.log(activeFilter);
-
   let filterActiveTodos = () => todos.filter((todo) => todo.isDone === false);
   let filterCompletedTodos = () => todos.filter((todo) => todo.isDone === true);
   let getActiveTodosCount = () => filterActiveTodos().length;
-
-  let nextId = 6;
 
   function renderList(list) {
     todoList.innerHTML = '';
@@ -100,7 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     if (todoInput.value.trim()) {
       todos.push({
-        id: nextId++,
+        id: Date.now(),
         text: todoInput.value,
         isDone: false,
       });

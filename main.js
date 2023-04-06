@@ -89,7 +89,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     if (todoInput.value.trim()) {
       todos.push({
-        id: nextId++,
+        id: Date.now(),
         text: todoInput.value,
         isDone: false,
       });
